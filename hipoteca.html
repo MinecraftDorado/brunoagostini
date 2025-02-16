@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Hipotecaria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Calculadora Hipotecaria</h1>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title h4">Datos del Préstamo</h2>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Monto del préstamo</label>
+                        <input type="text" class="form-control" id="loanAmount" placeholder="Ej: 100000.00">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Tasa de interés anual (%)</label>
+                        <input type="text" class="form-control" id="interestRate" placeholder="Ej: 5.5">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Plazo (años)</label>
+                        <input type="number" class="form-control" id="loanTerm" placeholder="Ej: 30">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title h4">Ingresos y Gastos Mensuales</h2>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Salario mensual</label>
+                        <input type="number" class="form-control" id="monthlySalary" placeholder="Ej: 3000">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Gastos mensuales</label>
+                        <input type="number" class="form-control" id="monthlyExpenses" placeholder="Ej: 1000">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary mb-2" onclick="calculateAll()">Calcular</button>
+            <button class="btn btn-secondary" onclick="showHistory()">Ver Historial</button>
+        </div>
+
+        <div class="card mt-4" id="resultsCard">
+            <div class="card-body">
+                <h2 class="card-title h4">Resultados</h2>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="alert alert-info">
+                            <h5>Cuota Mensual</h5>
+                            <p id="monthlyPayment" class="h3">$0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="alert alert-warning">
+                            <h5>Total Gastos</h5>
+                            <p id="totalExpenses" class="h3">$0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="alert alert-success">
+                            <h5>Dinero Disponible</h5>
+                            <p id="availableMoney" class="h3">$0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="alert alert-primary">
+                            <h5>Total a Pagar</h5>
+                            <p id="totalLoanPayment" class="h3">$0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenedor para los gráficos en la misma fila -->
+                <div class="row mt-4">
+                    <!-- Gráfico de distribución de dinero -->
+                    <div class="col-md-6">
+                        <h3 class="h5">Distribución del Dinero</h3>
+                        <canvas id="moneyDistributionChart"></canvas>
+                    </div>
+
+                    <!-- Gráfico de amortización -->
+                    <div class="col-md-6">
+                        <h3 class="h5">Amortización del Préstamo</h3>
+                        <div class="mb-3">
+                            <label for="yearFilter" class="form-label">Filtrar por año:</label>
+                            <select class="form-select" id="yearFilter" style="width: auto;">
+                                <option value="">Todos los años</option>
+                            </select>
+                        </div>
+                        <div style="height: 300px;">
+                            <canvas id="amortizationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nueva sección de historial (inicialmente oculta) -->
+        <div class="card mt-4" id="historyCard" style="display: none;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="card-title h4">Historial de Cálculos</h2>
+                    <button class="btn btn-primary btn-sm" onclick="showCalculator()">Volver a la Calculadora</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fecha y Hora</th>
+                                <th>Monto</th>
+                                <th>Tasa (%)</th>
+                                <th>Plazo (años)</th>
+                                <th>Cuota Mensual</th>
+                                <th>Total a Pagar</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Agregar Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
