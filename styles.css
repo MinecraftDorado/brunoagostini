@@ -1,0 +1,122 @@
+/* Color Variables */
+:root {
+	--color-background: #6E9FA6;
+	--color-text: #BDD8DA;
+	--color-card-bg: #4F8991;
+	--color-card-image-bg: #96BDC2;
+	--color-shadow-light: rgba(0, 0, 0, 0.1);
+	--color-shadow-dark: rgba(0, 0, 0, 0.15);
+}
+
+/* Basic Reset */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	background-color: var(--color-background);
+	color: var(--color-text);
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container {
+	width: 100%;
+	max-width: 1200px;
+	padding: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cards-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+}
+
+.card {
+	width: min(250px, 80vw);
+	height: min(250px, 80vw);
+	background-color: var(--color-card-bg);
+	border-radius: 15px;
+	overflow: hidden;
+	box-shadow: 0 4px 8px var(--color-shadow-light);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	text-decoration: none;
+	color: var(--color-text);
+	display: flex;
+	flex-direction: column;
+}
+
+.card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 10px 20px var(--color-shadow-dark);
+}
+
+.card-image {
+	height: calc(min(250px, 80vw) * 0.8);
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--color-card-image-bg);
+	padding: 20px;
+}
+
+.card-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.card-title {
+	padding: 1rem;
+	text-align: center;
+	font-weight: bold;
+	background-color: var(--color-card-bg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.cards-container {
+		gap: 1.5rem;
+	}
+
+	.card {
+		width: min(220px, 70vw);
+		height: min(220px, 70vw);
+	}
+
+	.card-image {
+		height: calc(min(220px, 70vw) * 0.8);
+	}
+}
+
+@media (max-width: 480px) {
+	.container {
+		padding: 1rem;
+	}
+
+	.cards-container {
+		gap: 1rem;
+		flex-direction: column;
+	}
+
+	.card {
+		width: min(300px, 90vw);
+		height: min(300px, 90vw);
+	}
+
+	.card-image {
+		height: calc(min(300px, 90vw) * 0.8);
+	}
+}
