@@ -112,11 +112,11 @@ body {
 	}
 
 	.card {
-		width: min(300px, 90vw);
-		height: min(300px, 90vw);
+		width: min(220px, 70vw);
+		height: min(220px, 70vw);
 	}
 
 	.card-image {
-		height: calc(min(300px, 90vw) * 0.8);
+		height: calc(min(220px, 70vw) * 0.8);
 	}
 }
