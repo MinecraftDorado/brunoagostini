@@ -3,9 +3,9 @@ let moneyDistributionChart = null;
 let amortizationChart = null;
 
 function calculateAll() {
-    // Obtener valores de los inputs y limpiarlos de separadores de miles
-    const loanAmount = parseFloat(document.getElementById('loanAmount').value.replace(/\./g, '').replace(',', '.'));
-    const interestRate = parseFloat(document.getElementById('interestRate').value.replace(/\./g, '').replace(',', '.')) / 100;
+    // Obtener valores de los inputs
+    const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+    const interestRate = parseFloat(document.getElementById('interestRate').value) / 100;
     const loanTerm = parseInt(document.getElementById('loanTerm').value);
     const monthlySalary = parseFloat(document.getElementById('monthlySalary').value);
     const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value);
@@ -82,21 +82,11 @@ function formatCurrency(value) {
     }).format(value);
 }
 
-// Modificar la función de validación de entrada
+// Agregar validación de entrada para números positivos y máximo 2 decimales
 document.querySelectorAll('input[type="text"]').forEach(input => {
     input.addEventListener('input', function() {
-        // Obtener el valor actual y la posición del cursor
-        let value = this.value;
-        const cursorPos = this.selectionStart;
-        
-        // Remover todos los separadores de miles existentes
-        value = value.replace(/\./g, '');
-        
-        // Reemplazar coma por punto para el decimal
-        value = value.replace(',', '.');
-        
         // Remover cualquier caracter que no sea número o punto
-        value = value.replace(/[^\d.]/g, '');
+        let value = this.value.replace(/[^\d.]/g, '');
         
         // Asegurar que solo haya un punto decimal
         const parts = value.split('.');
@@ -117,21 +107,7 @@ document.querySelectorAll('input[type="text"]').forEach(input => {
             value = '0';
         }
         
-        // Aplicar separador de miles a la parte entera
-        if (value !== '') {
-            const decimalPart = parts.length > 1 ? '.' + parts[1] : '';
-            const integerPart = parts[0];
-            // Agregar separadores de miles
-            const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            value = formattedInteger + decimalPart;
-        }
-        
         this.value = value;
-        
-        // Ajustar la posición del cursor considerando los separadores agregados
-        const addedSeparators = (value.match(/\./g) || []).length;
-        const newPosition = cursorPos + addedSeparators;
-        this.setSelectionRange(newPosition, newPosition);
     });
 });
 
